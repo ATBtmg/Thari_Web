@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thari Gaming Version </title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            400: '#38bdf8',
+                            500: '#06b6d4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Custom scrollbar for screenshot gallery */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border-b border-slate-200/50 dark:border-slate-800/50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- App Brand & Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <!-- CUSTOMIZATION: Replace image URL with your app logo -->
+                <!-- <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-rocket text-xl"></i>
+                </div> -->
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                        Thari Mobile
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 font-semibold px-2 py-0.5 rounded-full border border-brand-200 dark:border-brand-800/50">v1.2.1</span>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Navigation Links & Theme Toggle -->
+            <div class="flex items-center gap-2 sm:gap-6">
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+                    <a href="#features" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Features</a>
+                    <a href="#screenshots" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Screenshots</a>
+                    <a href="#install" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Installation</a>
+                </nav>
+
+                <!-- Dark/Light Theme Switcher -->
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Toggle Theme" aria-label="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+
+                <!-- Header CTA Button -->
+                <a href="https://github.com/ATBtmg/Thari/releases/download/v1.2.1/app-release.apk" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-sm hover:shadow-md transition-all active:scale-95">
+                    <i class="fa-solid fa-download"></i>
+                    <span>APK (60 MB)</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+            <div class="hero-glow top-10 left-1/2 -translate-x-1/2"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Content -->
+                    <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                        
+                        <!-- Version Tag Badge -->
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm">
+                            <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Latest Version Released</span>
+                            <span class="text-slate-400 dark:text-slate-500">•</span>
+                            <button onclick="openChangelogModal()" class="text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
+                                Release Notes <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <!-- Title & Tagline -->
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            Introducing Games in  <span class="gradient-text">Thari Mobile App</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Still lightweight, Another way to simply push Our country, our Village, The vision is still the same, Motho ke Motho ka Batho.
+                        </p>
+
+                        <!-- Call To Action & Details -->
+                        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <!-- CUSTOMIZATION: Set your direct APK Download Link below in href -->
+                            <a href="https://github.com/ATBtmg/Thari/releases/download/v1.2.1/app-release.apk" download class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-500 hover:from-brand-700 hover:to-accent-600 text-white font-bold text-base shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3 group">
+                                <i class="fa-solid fa-android text-2xl group-hover:scale-110 transition-transform"></i>
+                                <div class="text-left leading-tight">
+                                    <div class="text-xs uppercase tracking-wider font-medium opacity-80">Direct Download</div>
+                                    <div class="text-base font-bold">Download APK (v1.2.1</div>
+                                </div>
+                            </a>
+
+                            <a href="#install" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-slate-200/80 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-base transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-question text-slate-500"></i>
+                                <span>How to Install</span>
+                            </a>
+                        </div>
+
+                        <!-- Safety & Specs Meta Badges -->
+                        <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            <span class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                                <i class="fa-solid fa-shield-halved text-sm"></i> Malware & Virus Scanned
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-microchip"></i> Android 7.0+
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-hard-drive"></i> 60 MB
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- Hero Visual Mockup -->
+                    <div class="lg:col-span-5 flex justify-center relative">
+                        <div class="relative w-full max-w-[280px] sm:max-w-[320px]">
+                            <!-- Phone Frame Container -->
+                            <div class="relative z-10 rounded-[48px] p-4 bg-slate-900 shadow-2xl border-4 border-slate-700 dark:border-slate-800 ring-1 ring-slate-900/50">
+                                <!-- Phone Notch -->
+                                <div class="absolute top-6 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-900 rounded-full z-20 flex items-center justify-center">
+                                    <div class="w-3 h-3 rounded-full bg-slate-800"></div>
+                                </div>
+
+                                <!-- Screen Display -->
+                                <!-- CUSTOMIZATION: Replace image src with your main App Home Screen mockup -->
+                                <div class="relative rounded-[36px] overflow-hidden bg-slate-950 aspect-[9/19.5]">
+                                    <img src="https://placehold.co/1080x2340/1e293b/38bdf8?text=App+Home+Screen" alt="Apex Mobile App Screen" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Decorative background glow behind phone -->
+                            <div class="absolute -inset-4 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-[60px] blur-2xl opacity-30 -z-10 animate-pulse"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+  
+
+        <!-- Installation Guide Section -->
+        <section id="install" class="py-16 md:py-24 bg-slate-100/60 dark:bg-slate-900/40 border-t border-slate-200/60 dark:border-slate-800/60">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Easy Sideloading</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold tracking-tight">How to Install the APK on Android</p>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">Installing apps directly outside Google Play Store is safe and takes less than a minute.</p>
+                </div>
+
+                <!-- Steps List -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                    
+                    <!-- Step 1 -->
+                    <div class="glass-card p-6 rounded-3xl relative flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-600 text-white font-bold text-lg flex items-center justify-center shadow-md mb-4">1</div>
+                        <h3 class="text-lg font-bold mb-2">Download APK</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Tap the <strong class="text-slate-800 dark:text-slate-200">Download APK</strong> button on this page and save the file to your mobile device.
+                        </p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass-card p-6 rounded-3xl relative flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-600 text-white font-bold text-lg flex items-center justify-center shadow-md mb-4">2</div>
+                        <h3 class="text-lg font-bold mb-2">Allow Unknown Apps</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            When prompted, go to <strong class="text-slate-800 dark:text-slate-200">Settings → Security/Privacy</strong> and enable permission for your browser (e.g., Chrome) to <span class="underline">Install unknown apps</span>.
+                        </p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass-card p-6 rounded-3xl relative flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-600 text-white font-bold text-lg flex items-center justify-center shadow-md mb-4">3</div>
+                        <h3 class="text-lg font-bold mb-2">Complete Setup</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Open your browser's <strong class="text-slate-800 dark:text-slate-200">Downloads</strong> folder, tap <code class="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-xs">app-release.apk</code>, and click Install.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Pro tip banner -->
+                <div class="mt-12 p-4 sm:p-6 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-amber-500 text-xl shrink-0 mt-0.5"></i>
+                    <div class="text-xs sm:text-sm leading-relaxed">
+                        <strong>Security Note:</strong> Android displays standard warnings whenever installing software outside Google Play Store. Our APK is 100% digitally signed and verified malware-free.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <!-- <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white text-sm font-bold">
+                    <i class="fa-solid fa-rocket"></i>
+                </div> -->
+                <span class="font-bold text-sm">Thari Mobile App</span>
+                <span class="text-xs text-slate-400">© 2026 All Rights Reserved.</span>
+            </div>
+
+            <div class="flex items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <button onclick="openChangelogModal()" class="hover:text-brand-500 transition-colors">Changelog</button>
+                <a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a>
+                <a href="https://github.com/your-username/your-repo" target="_blank" rel="noopener" class="hover:text-brand-500 transition-colors flex items-center gap-1">
+                    <i class="fa-brands fa-github text-sm"></i> GitHub Source
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex-col items-center justify-center p-4">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-2xl hover:text-brand-400 transition-colors p-2" aria-label="Close Preview">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="Full Preview" class="max-h-[80vh] max-w-full rounded-2xl shadow-2xl border-2 border-slate-800">
+        <p id="lightboxCaption" class="text-slate-300 text-sm font-medium mt-4"></p>
+    </div>
+
+    <!-- Release Notes / Changelog Modal -->
+    <div id="changelogModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 relative max-h-[85vh] overflow-y-auto">
+            <button onclick="closeChangelogModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" aria-label="Close Changelog">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <h3 class="text-2xl font-bold mb-1">Release Notes</h3>
+            <p class="text-xs text-brand-600 dark:text-brand-400 font-semibold mb-6">Version v1.2.4 (September 2026)</p>
+
+            <div class="space-y-6 text-sm">
+                <div>
+                    <h4 class="font-bold flex items-center gap-2 mb-2">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">NEW</span>
+                        Features & Enhancements
+                    </h4>
+                    <ul class="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-1 pl-1">
+                        <li>Added high-refresh rate screen support up to 120Hz.</li>
+                        <li>Introduced quick theme switching widget.</li>
+                        <li>Improved offline database caching efficiency.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold flex items-center gap-2 mb-2">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-400">FIXED</span>
+                        Bug Fixes
+                    </h4>
+                    <ul class="list-disc list-inside text-slate-600 dark:text-slate-400 space-y-1 pl-1">
+                        <li>Resolved notification delay on Android 14+ devices.</li>
+                        <li>Fixed minor UI overflow issues on small viewport phones.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="closeChangelogModal()" class="mt-8 w-full py-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-semibold text-xs transition-colors">
+                Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Theme Management Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Check user preference or system theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Screenshot Lightbox Functions
+        function openLightbox(src, caption) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightboxCaption').textContent = caption;
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Changelog Modal Functions
+        function openChangelogModal() {
+            const modal = document.getElementById('changelogModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeChangelogModal() {
+            const modal = document.getElementById('changelogModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Close modals when clicking backdrop
+        window.addEventListener('click', (e) => {
+            const lightbox = document.getElementById('lightboxModal');
+            const changelog = document.getElementById('changelogModal');
+            if (e.target === lightbox) closeLightbox();
+            if (e.target === changelog) closeChangelogModal();
+        });
+    </script>
+</body>
+</html>
